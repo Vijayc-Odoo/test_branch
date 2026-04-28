@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_stock_detail_wizard,stock_detail_wizard,model_stock_detail_wizard,,1,1,1,1
+access_stock_detail_wizard_line,stock_detail_wizard_line,model_stock_detail_wizard_line,,1,1,1,1
+access_stock_detail_wizard_spec,stock_detail_wizard_spec,model_stock_detail_wizard_spec,,1,1,1,1
+access_stock_detail_price,stock_detail_price,model_stock_detail_price,,1,1,1,1
