@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_stock_detail_wizard_form" model="ir.ui.view">
+        <field name="name">stock.detail.wizard.form</field>
+        <field name="model">stock.detail.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Filter Products by Specification">
+                <header>
+                    <button name="action_filter_products"
+                            string="Search Products"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_download_all_images"
+                            string="Products Img Report"
+                            type="object"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Basic Filters">
+                            <field name="int_ref" placeholder="e.g. CPU-001"/>
+                            <field name="parent_category_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="child_category_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="standard_price_id"/>
+                            <field name="price_option_ids" invisible="1"/>
+                        </group>
+                        <group string="Source Filters">
+                            <field name="company_id"/>
+                            <field name="partner_id"/>
+                            <field name="active_state"/>
+                            <field name="product_stock"/>
+                            <field name="running_item"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Specifications">
+                            <field name="filter_spec_ids" string="">
+                                <list editable="bottom">
+                                    <field name="product_spec_id" options="{'no_create': True}"/>
+                                    <field name="product_spec_value_id"
+                                           options="{'no_create': True}"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Matching Products" name="results">
+                            <field name="product_line_ids" readonly="1">
+                                <list decoration-info="lst_price &gt; 0">
+                                    <field name="default_code"/>
+                                    <field name="qty_available" column_invisible="parent.product_stock == 'negative_stock'"/>
+                                    <field name="virtual_available" column_invisible="parent.product_stock != 'negative_stock' and parent.product_stock != 'negative_stock'"/>
+                                    <field name="item_cost"/>
+                                    <field name="lst_price" widget="monetary"/>
+                                    <field name="product_id"/>
+                                    <field name="product_max_qty"/>
+                                    <field name="product_min_qty"/>
+                                    <field name="categ_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="last_purchase_price"/>
+                                    <field name="last_purchase_quantity"/>
+                                    <field name="last_purchase_date"/>
+                                    <field name="product_image" widget="image" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_detail_wizard" model="ir.actions.act_window">
+        <field name="name">Stock Detail</field>
+        <field name="res_model">stock.detail.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_stock_wizard_root" name="Reports" sequence="10"/>
+    <menuitem id="menu_stock_detail_sub" name="Stock Detail" parent="menu_stock_wizard_root"
+              action="action_stock_detail_wizard" sequence="1"/>
+
+</odoo>
